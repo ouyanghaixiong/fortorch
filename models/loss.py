@@ -210,13 +210,18 @@ class GHMCrossEntropy(torch.nn.Module):
         if y_pred.dim() != y_true.dim():
             raise ValueError(f"the dim of y_pred {y_pred.dim()} != the dim of y_true {y_true.dim()}")
         if label_weight is None:
-            label_weight = torch.ones_like(y_pred)
-        y_true, label_weight = y_true.float(), label_weight.float()
-        weights = torch.zeros_like(label_weight)
+            label_weight = torch.ones(size=(y_pred.size()[0], 1))
+        label_weight = label_weight.float()
+        weights = torch.zeros(size=(y_pred.size()[0], 1))
 
         # gradient length, shape [batch_size, 1]
         with torch.no_grad():
-            g = torch.sum(torch.abs(y_true * (1 - y_pred.sigmoid())), dim=1, keepdim=True)
+            g = torch.sum(
+                torch.abs(
+                    torch.gather(1 - torch.softmax(y_pred, dim=1), dim=1, index=y_true)
+                ),
+                dim=1, keepdim=True
+            )
 
         valid = label_weight > 0
         tot = max(valid.float().sum().item(), 1.0)
@@ -235,6 +240,9 @@ class GHMCrossEntropy(torch.nn.Module):
         if n > 0:
             weights = weights / n
 
-        loss = F.binary_cross_entropy_with_logits(y_pred, y_true, weight=weights, reduction=self.reduction)
+        loss_ce = F.cross_entropy(y_pred, y_true.reshape(-1), reduce=False)
+        print(loss_ce)
+        loss = weights * loss_ce.reshape(-1, 1)
+        print(loss)
 
-        return loss
+        return loss.sum() if self.reduction == 'sum' else loss.mean()
