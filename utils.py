@@ -7,7 +7,7 @@ import numpy as np
 import requests
 import torch
 
-from consts import DEFAULT_SEED, LOGGING_LEVEL
+from consts import SEED, LOGGING_LEVEL
 
 
 def read_file(path: str) -> str:
@@ -15,7 +15,7 @@ def read_file(path: str) -> str:
         return f.read()
 
 
-def set_seed(seed: int = DEFAULT_SEED):
+def set_seed(seed: int = SEED):
     """
     Avoid randomicity according to setting the random state.
     Args:

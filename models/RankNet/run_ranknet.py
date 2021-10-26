@@ -14,7 +14,7 @@ from typing import List, Tuple, Dict, Union
 import numpy as np
 import torch.nn
 
-from consts import DATA_DIR, DEFAULT_DEVICE, DEFAULT_DTYPE, SAVE_DIR
+from consts import DATA_DIR, DEVICE, DTYPE, SAVE_DIR
 from datasets.mslr import MSLRPairDataset, MSLRDataset
 from models.RankNet.configuration import RankNetConfig
 from models.RankNet.modelling import RankNet, RankNetMLP
@@ -158,7 +158,7 @@ def calculate_lambda(yhat: torch.Tensor, doc_pairs: List[Tuple[int, int]],
             lambda_vector[index_i, 0] += lambda_ij
             lambda_vector[index_j, 0] -= lambda_ij
 
-    return torch.tensor(lambda_vector, device=DEFAULT_DEVICE, dtype=DEFAULT_DTYPE)
+    return torch.tensor(lambda_vector, device=DEVICE, dtype=DTYPE)
 
 
 def train_speedup(train_data: MSLRDataset, dev_data: MSLRDataset, model: RankNetMLP, optimizer: torch.optim.Optimizer,
@@ -280,7 +280,7 @@ def main(training_method="normal"):
         model_config = RankNetConfig(in_features=136, hidden_size=64, out_features=1)
         training_args = TrainingArgument(num_epochs=10, early_stopping_rounds=100, learning_rate=3e-5, momentum=0.99,
                                          weight_decay=0.1)
-        model = RankNet(model_config).to(DEFAULT_DEVICE)
+        model = RankNet(model_config).to(DEVICE)
         optimizer = torch.optim.SGD(model.parameters(), lr=training_args.learning_rate, momentum=training_args.momentum,
                                     weight_decay=training_args.weight_decay)
         criterion = torch.nn.BCELoss()
@@ -300,7 +300,7 @@ def main(training_method="normal"):
         model_config = RankNetConfig(in_features=136, hidden_size=64, out_features=1)
         training_args = TrainingArgument(num_epochs=10, early_stopping_rounds=100, learning_rate=3e-5, momentum=0.99,
                                          weight_decay=0.001)
-        model = RankNetMLP(model_config).to(DEFAULT_DEVICE)
+        model = RankNetMLP(model_config).to(DEVICE)
         optimizer = torch.optim.SGD(model.parameters(), lr=training_args.learning_rate, momentum=training_args.momentum,
                                     weight_decay=training_args.weight_decay)
 

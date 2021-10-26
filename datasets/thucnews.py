@@ -15,7 +15,7 @@ import torch.utils.data
 from torch.utils.data.dataset import T_co
 from tqdm import tqdm
 
-from consts import DATA_DIR, DEFAULT_DEVICE
+from consts import DATA_DIR, DEVICE
 
 from utils import get_logger
 
@@ -45,8 +45,8 @@ class THUCNewsDataset(torch.utils.data.Dataset):
         self.mode = mode
 
         data = self._process()
-        self.x = torch.LongTensor([_[0] for _ in data]).to(DEFAULT_DEVICE)
-        self.y = torch.LongTensor([_[1] for _ in data]).to(DEFAULT_DEVICE)
+        self.x = torch.LongTensor([_[0] for _ in data]).to(DEVICE)
+        self.y = torch.LongTensor([_[1] for _ in data]).to(DEVICE)
 
     def _process(self):
         file_map = {

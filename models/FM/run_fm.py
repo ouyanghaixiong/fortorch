@@ -10,7 +10,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import KFold
 from torch.utils.data import DataLoader, SubsetRandomSampler
 
-from consts import DEFAULT_SEED
+from consts import SEED
 from models.FM.factorization_machine import FM
 from datasets.criteo import CriteoDataset
 from utils import get_logger
@@ -39,7 +39,7 @@ def train():
     optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
     # start training with cross validation
-    splitter = KFold(n_splits=n_split, shuffle=True, random_state=DEFAULT_SEED)
+    splitter = KFold(n_splits=n_split, shuffle=True, random_state=SEED)
     # for each epoch
     for epoch in range(num_epoch):
         # for each fold

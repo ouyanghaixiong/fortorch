@@ -12,7 +12,7 @@ import torch
 import torch.nn as nn
 
 from utils import check_sanity, set_seed
-from consts import DEFAULT_SEED
+from consts import SEED
 from datasets.thucnews import EMBEDDING_FILE, TRAIN_FILE, DEV_FILE, TEST_FILE, CLASSES_FILE, VOCAB_FILE, \
     THUCNewsDataset
 from models.train import Trainer
@@ -125,7 +125,7 @@ def parse_args():
     parser.add_argument("--classes_file", type=str, default=CLASSES_FILE, help="类别名称数据文件")
     parser.add_argument("--vocab_file", type=str, default=VOCAB_FILE, help="词典文件")
     parser.add_argument("--pretrained_embedding_file", type=str, default=EMBEDDING_FILE, help="预训练的词向量文件")
-    parser.add_argument("--seed", type=int, default=DEFAULT_SEED, help="随机种子")
+    parser.add_argument("--seed", type=int, default=SEED, help="随机种子")
 
     # 模型参数
     parser.add_argument("--n_vocab", type=int, default=10000, help="词表大小")

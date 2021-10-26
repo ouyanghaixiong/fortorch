@@ -11,7 +11,7 @@ import numpy as np
 import torch.utils.data
 from torch.utils.data.dataset import T_co
 
-from consts import DEFAULT_DEVICE
+from consts import DEVICE
 from utils import get_logger
 
 logger = get_logger(__name__)
@@ -153,9 +153,9 @@ class MSLRPairDataset(torch.utils.data.Dataset):
             labels.append([label])
             documents_i.append(doc_i)
             documents_j.append(doc_j)
-        labels = torch.FloatTensor(labels, device=DEFAULT_DEVICE)
-        documents_i = torch.FloatTensor(documents_i, device=DEFAULT_DEVICE)
-        documents_j = torch.FloatTensor(documents_j, device=DEFAULT_DEVICE)
+        labels = torch.FloatTensor(labels, device=DEVICE)
+        documents_i = torch.FloatTensor(documents_i, device=DEVICE)
+        documents_j = torch.FloatTensor(documents_j, device=DEVICE)
 
         return labels, documents_i, documents_j
 
@@ -194,8 +194,8 @@ class MSLRDataset(torch.utils.data.Dataset):
         qid: int = self.unique_qids[index]
         indexes_documents: List[int] = self.query_documents_map[qid]
         features = self.samples[indexes_documents, 2:]
-        labels = torch.FloatTensor(self.samples[indexes_documents, 0].reshape(-1, 1), device=DEFAULT_DEVICE)
-        x = torch.FloatTensor(features, device=DEFAULT_DEVICE)
+        labels = torch.FloatTensor(self.samples[indexes_documents, 0].reshape(-1, 1), device=DEVICE)
+        x = torch.FloatTensor(features, device=DEVICE)
 
         return labels, x
 

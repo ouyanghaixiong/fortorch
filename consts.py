@@ -20,13 +20,13 @@ DATA_DIR = os.path.join(ROOT_DIR, "data")
 SAVE_DIR = os.path.join(ROOT_DIR, "save")
 
 # the device to use
-DEFAULT_DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # random seed
-DEFAULT_SEED = 2021
+SEED = 2021
 
 # default data type of torch.Tensor
-DEFAULT_DTYPE = torch.float32
+DTYPE = torch.float32
 
 # logging.level
 LOGGING_LEVEL = logging.INFO
