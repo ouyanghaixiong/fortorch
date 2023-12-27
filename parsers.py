@@ -3,8 +3,6 @@
 @author: ouyanghaixiong@icloud.com
 @file: parsers.py
 @time: 2021/3/10 上午9:09
-@desc: 
-@Software: PyCharm
 """
 
 

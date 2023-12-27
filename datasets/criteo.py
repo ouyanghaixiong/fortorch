@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: ouyanghaixiong@forchange.tech
+@author: bearouyang@icloud.com
 @file: criteo.py
 @time: 2021/9/15
 @desc: 
@@ -31,7 +31,7 @@ class CriteoDataset(Dataset):
         self.test = self.data.iloc[train_size:, :]
 
     def __getitem__(self, index) -> Tuple[torch.IntTensor, torch.FloatTensor, torch.IntTensor] or Tuple[
-        torch.IntTensor, torch.IntTensor]:
+            torch.IntTensor, torch.IntTensor]:
         data = self.train if self.is_training else self.test
         label = torch.as_tensor(data.iloc[index, 0], dtype=torch.float32)
         if self.discretize:
