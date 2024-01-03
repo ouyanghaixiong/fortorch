@@ -46,10 +46,12 @@ threadpoolctl==3.2.0
 tokenizers==0.15.0
 torch==2.1.2
 tqdm==4.66.1
-transformers==4.27.1
+transformers~=4.36.2
 triton==2.1.0
 typing_extensions==4.9.0
 tzdata==2023.3
 urllib3==2.1.0
 zipp==3.17.0
 sentencepiece==0.1.99
+torchvision~=0.16.2
+torchmetrics~=1.2.1
