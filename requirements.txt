@@ -55,3 +55,4 @@ zipp==3.17.0
 sentencepiece==0.1.99
 torchvision~=0.16.2
 torchmetrics~=1.2.1
+mlxtend~=0.23.0
